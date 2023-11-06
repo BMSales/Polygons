@@ -51,4 +51,5 @@ int main(){
 	Array_Define(size, &ptr);
 	Array_Fill_Random(size, ptr);
 	Array_Display(size, ptr);
+	free(ptr);
 }
