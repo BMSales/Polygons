@@ -37,9 +37,9 @@ float Random_Number(){
 	float whole;
 	float decimal;
 
-	integer = rand() % 1000;
+	integer = rand() % 10000000;
 	decimal = (float)integer;
-	decimal /= 1000;
+	decimal /= 10000000;
 
 	integer = rand() % 500;
 	whole = (float)integer;
@@ -118,7 +118,7 @@ void Array_Initialize(int size, struct Point *points){
 
 void Array_Display(int size, struct Point *points){
 	for(int i = 0; i < size; i++){
-		printf("%4d- Point: (%4f, %4f) | Distance: %4f | Angle: %4f\n", i + 1, points[i].x, points[i].y, points[i].distance, points[i].angle);
+		printf("%4d- Point: (%3f, %3f) | Distance: %4f | Angle: %3f\n", i + 1, points[i].x, points[i].y, points[i].distance, points[i].angle);
 	}
 	printf("\n");
 }
