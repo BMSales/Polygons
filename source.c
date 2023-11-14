@@ -37,9 +37,9 @@ float Random_Number(){
 	float whole;
 	float decimal;
 
-	integer = rand() % 10000000;
+	integer = rand() % 1000000;
 	decimal = (float)integer;
-	decimal /= 10000000;
+	decimal /= 1000000;
 
 	integer = rand() % 500;
 	whole = (float)integer;
@@ -92,7 +92,7 @@ int Point_Sort_Angle(struct Point *points, int start, int end){
         int pivot = end;
         int greater = start;
         for(int i = start; i < end; i++){
-                if(Compare_Float(&(points[pivot].angle), &(points[i].angle))){
+                if(Compare_Float(&points[pivot].angle, &points[i].angle)){
                         Swap(&points[greater], &points[i]);
                         greater++;
                 }
