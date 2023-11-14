@@ -85,16 +85,6 @@ void Point_Calculate_Distance(int size, struct Point *points){
 	}
 }
 
-/*void Point_Sort_Angle(int size, struct Point *points){
-	for(int i = 0; i < size - 1; i++){
-		for(int j = i + 1; j < size; j++){
-			if(Compare_Float(&(points[i].angle), &(points[j].angle))){
-				Swap(&points[i], &points[j]);
-			}
-		}
-	}
-}*/
-
 int Point_Sort_Angle(struct Point *points, int start, int end){
         if(start >= end){
                 return 0;
