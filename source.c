@@ -24,12 +24,18 @@ int Compare_Float(float *num_1, float *num_2){
 }
 
 float Calculate_Angle(struct Point *point_1, struct Point *point_2){
-	return acos((((point_1->x) * (point_2->x)) + ((point_1->y) * (point_2->y))) / point_1->distance * point_2->distance) * 180/M_PI;
+	return acosf((((point_1->x) * (point_2->x)) + ((point_1->y) * (point_2->y))) / (point_1->distance * point_2->distance));
 }
 
 float Calculate_Distance(struct Point *point_1, struct Point *point_2){
 	return sqrt(pow(point_1->x - point_2->x, 2.0) + pow(point_1->y - point_2->y, 2.0));
 }
+
+float Calculate_Area(struct Point *point_1, struct Point *point_2){
+	float angle = 0.0;
+	angle = Calculate_Angle(point_1, point_2);
+	return (point_1->distance * point_2->distance * sinf(angle)) * 1/2;
+}	
 
 float Random_Number(){
 	srand(clock());
@@ -71,9 +77,9 @@ void Point_Calculate_Angle(int size, struct Point *points){
 	Point unit_vector = {1.0, 0.0, 1.0, 0.0};
 	for(int i = 0; i < size; i++){
 		if(points[i].y >= 0){
-			points[i].angle = Calculate_Angle(&points[i], &unit_vector);
+			points[i].angle = Calculate_Angle(&points[i], &unit_vector) * 180/M_PI;
 		}else{
-			points[i].angle = -1 * (Calculate_Angle(&points[i], &unit_vector) - 360);
+			points[i].angle = -1 * ((Calculate_Angle(&points[i], &unit_vector) * 180/M_PI) - 360);
 		}
 	}
 }
@@ -83,6 +89,15 @@ void Point_Calculate_Distance(int size, struct Point *points){
 	for(int i = 0; i < size; i++){
 		points[i].distance = Calculate_Distance(&points[i], &zero);
 	}
+}
+
+float Point_Calculate_Area(int size, struct Point *points){
+	float area = 0.0;
+	for(int i = 0; i < size - 1; i++){
+		area += Calculate_Area(&points[i], &points[i + 1]);
+	}
+	area += Calculate_Area(&points[size - 1], &points[0]);
+	return area;
 }
 
 int Point_Sort_Angle(struct Point *points, int start, int end){
@@ -141,5 +156,6 @@ int main(){
 	Array_Display(size, points);
 	Point_Sort_Angle(points, 0, size - 1);
 	Array_Display(size, points);
+	printf("Area of polygon: %f\n", Point_Calculate_Area(size, points));
 	free(points);
 }
